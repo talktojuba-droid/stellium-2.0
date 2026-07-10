@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" />
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background:
+        radial-gradient(circle at 20% 8%, oklch(0.3 0.08 200 / 0.22), transparent 55%),
+        radial-gradient(circle at 82% 82%, oklch(0.32 0.1 85 / 0.16), transparent 55%),
+        radial-gradient(circle at 50% 50%, oklch(0.17 0.03 255) 0%, oklch(0.115 0.02 255) 100%);
+      background-attachment: fixed;
+      color: oklch(0.94 0.015 80);
+      font-family: "Cormorant Garamond", ui-serif, Georgia, serif;
+      min-height: 100vh;
+    }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: oklch(0.13 0.02 255 / 0.6); }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, oklch(0.82 0.14 85 / 0.7), oklch(0.82 0.14 85 / 0.35)); border-radius: 8px; }
+    @keyframes bc-twinkle { 0%,100% { opacity: 0.15; transform: scale(0.8); } 50% { opacity: 0.95; transform: scale(1.1); } }
+    @keyframes bc-reveal { 0% { opacity: 0; transform: translateY(26px) rotateY(60deg) scale(0.94); } 60% { opacity: 1; } 100% { opacity: 1; transform: translateY(0) rotateY(0) scale(1); } }
+    @keyframes bc-pulse { 0%,100% { opacity: 0.5; } 50% { opacity: 0.95; } }
+    @keyframes bc-spin { to { transform: translate(-50%,-50%) rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { *{ animation: none !important; } }
+  </style>
+</helmet>
+
+<div style="position: relative; min-height: 100vh; overflow-x: hidden;">
+
+  <!-- ambient starfield -->
+  <div style="position: fixed; inset: 0; pointer-events: none; z-index: 0;">
+    <sc-for list="{{ stars }}" as="s" hint-placeholder-count="0">
+      <span style="position: absolute; width: 2px; height: 2px; border-radius: 50%; background: oklch(0.86 0.07 85); left: {{ s.x }}; top: {{ s.y }}; animation: bc-twinkle {{ s.dur }} ease-in-out infinite; animation-delay: {{ s.delay }};"></span>
+    </sc-for>
+    <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, transparent 34%, oklch(0.06 0.03 270 / 0.82) 96%);"></div>
+  </div>
+
+  <!-- top bar -->
+  <header style="position: sticky; top: 0; z-index: 30; height: 56px; display: flex; align-items: center; gap: 12px; padding: 0 20px; background: linear-gradient(180deg, oklch(0.1 0.02 255 / 0.72), oklch(0.1 0.02 255 / 0.5)); backdrop-filter: blur(16px) saturate(1.3); border-bottom: 1px solid oklch(0.82 0.14 85 / 0.18);">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <div style="width: 34px; height: 34px; border-radius: 50%; border: 1px solid oklch(0.82 0.14 85 / 0.5); display: flex; align-items: center; justify-content: center; background: oklch(0.82 0.14 85 / 0.05);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="oklch(0.82 0.14 85)" stroke-width="1"><circle cx="12" cy="12" r="4"/><circle cx="12" cy="7.5" r="4"/><circle cx="12" cy="16.5" r="4"/><circle cx="8.1" cy="9.75" r="4"/><circle cx="15.9" cy="9.75" r="4"/><circle cx="8.1" cy="14.25" r="4"/><circle cx="15.9" cy="14.25" r="4"/></svg>
+      </div>
+      <span style="font-size: 14px; letter-spacing: 0.22em; font-weight: 500; color: oklch(0.88 0.06 85);">STELLIUM</span>
+    </div>
+    <nav style="margin-left: auto; display: flex; gap: 22px; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: oklch(0.72 0.02 250);">
+      <span style="color: oklch(0.82 0.14 85);">Oráculos</span>
+      <span>Astrologia</span>
+      <span>Estudo</span>
+      <span>Círculo</span>
+    </nav>
+  </header>
+
+  <main style="position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 34px 22px 72px;">
+
+    <!-- back + protocol + title -->
+    <a href="#" style="display: inline-flex; align-items: center; gap: 7px; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.72 0.12 200 / 0.9); text-decoration: none; margin-bottom: 20px;">
+      <span style="font-size: 13px;">‹</span> Baralho Cigano
+    </a>
+
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+      <span style="height: 1px; width: 34px; background: linear-gradient(90deg, transparent, oklch(0.82 0.14 85 / 0.6));"></span>
+      <span style="font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.34em; text-transform: uppercase; color: oklch(0.82 0.14 85 / 0.7);">Lenormand · Sessão · Nova Leitura</span>
+    </div>
+
+    <h1 style="font-size: 60px; line-height: 0.94; font-weight: 500; letter-spacing: 0.02em; margin: 0 0 14px; color: oklch(0.95 0.02 82);">
+      <span style="display: block;">BARALHO</span>
+      <span style="display: block; background: linear-gradient(135deg, oklch(0.92 0.13 90), oklch(0.7 0.14 75)); -webkit-background-clip: text; background-clip: text; color: transparent;">CIGANO</span>
+    </h1>
+    <p style="font-size: 18px; color: oklch(0.78 0.02 250); max-width: 46ch; margin: 0 0 30px; font-style: italic;">Escolha o modo, defina a tiragem e contemple os símbolos que a mesa revelar.</p>
+
+    <!-- stepper -->
+    <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 40px; padding-bottom: 26px; border-bottom: 1px solid oklch(0.82 0.14 85 / 0.12);">
+      <sc-for list="{{ steps }}" as="st" hint-placeholder-count="5">
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <span style="display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; border: 1px solid {{ st.border }}; background: {{ st.bg }};">
+            <span style="font-family: 'Space Mono', monospace; font-size: 10px; color: {{ st.numColor }};">{{ st.num }}</span>
+            <span style="font-family: 'Space Mono', monospace; font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: {{ st.color }};">{{ st.label }}</span>
+          </span>
+        </div>
+      </sc-for>
+    </div>
+
+    <!-- ETAPA 1 · PREPARAR -->
+    <section style="margin-bottom: 46px;">
+      <div style="font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: oklch(0.82 0.14 85 / 0.6); margin-bottom: 8px;">Etapa 1 · Preparação</div>
+      <h2 style="font-size: 30px; font-weight: 500; margin: 0 0 4px; color: oklch(0.93 0.02 82);">Prepare a sessão</h2>
+      <p style="font-size: 16px; color: oklch(0.7 0.02 250); margin: 0 0 22px; font-style: italic;">Escolha como criar a leitura, defina a tiragem e o tema da consulta.</p>
+
+      <!-- modo -->
+      <div style="position: relative; background: oklch(0.18 0.04 265 / 0.55); border: 1px solid oklch(0.82 0.14 85 / 0.2); backdrop-filter: blur(6px); padding: 20px; margin-bottom: 18px;">
+        <span style="position: absolute; top: 0; left: 0; width: 12px; height: 12px; border-top: 1px solid oklch(0.82 0.14 85 / 0.6); border-left: 1px solid oklch(0.82 0.14 85 / 0.6);"></span>
+        <span style="position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; border-bottom: 1px solid oklch(0.82 0.14 85 / 0.6); border-right: 1px solid oklch(0.82 0.14 85 / 0.6);"></span>
+        <div style="font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: oklch(0.82 0.14 85 / 0.7); margin-bottom: 12px;">Como deseja criar a leitura?</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <button onClick="{{ setAuto }}" style="{{ autoBtnStyle }}">✦ &nbsp;Automática</button>
+          <button onClick="{{ setManual }}" style="{{ manualBtnStyle }}">✋ &nbsp;Manual</button>
+        </div>
+      </div>
+
+      <!-- fields -->
+      <div style="position: relative; background: oklch(0.18 0.04 265 / 0.55); border: 1px solid oklch(0.82 0.14 85 / 0.2); backdrop-filter: blur(6px); padding: 22px;">
+        <span style="position: absolute; top: 0; left: 0; width: 12px; height: 12px; border-top: 1px solid oklch(0.82 0.14 85 / 0.6); border-left: 1px solid oklch(0.82 0.14 85 / 0.6);"></span>
+        <span style="position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; border-bottom: 1px solid oklch(0.82 0.14 85 / 0.6); border-right: 1px solid oklch(0.82 0.14 85 / 0.6);"></span>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px;">
+          <label style="display: block;">
+            <span style="display: block; font-family: 'Space Mono', monospace; font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.82 0.14 85 / 0.6); margin-bottom: 7px;">Tipo de tiragem</span>
+            <select value="{{ spreadKey }}" onChange="{{ onSpread }}" style="width: 100%; background: oklch(0.14 0.03 265); color: oklch(0.9 0.03 82); border: 1px solid oklch(0.82 0.14 85 / 0.3); padding: 10px 12px; font-family: 'Space Mono', monospace; font-size: 12px; outline: none;">
+              <sc-for list="{{ spreadOptions }}" as="opt" hint-placeholder-count="4">
+                <option value="{{ opt.key }}">{{ opt.label }}</option>
+              </sc-for>
+            </select>
+          </label>
+          <label style="display: block;">
+            <span style="display: block; font-family: 'Space Mono', monospace; font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.82 0.14 85 / 0.6); margin-bottom: 7px;">Tema da consulta (opcional)</span>
+            <input value="{{ tema }}" onInput="{{ onTema }}" placeholder="Ex.: caminho profissional" style="width: 100%; background: oklch(0.14 0.03 265); color: oklch(0.9 0.03 82); border: 1px solid oklch(0.82 0.14 85 / 0.3); padding: 10px 12px; font-family: 'Cormorant Garamond', serif; font-size: 16px; outline: none;" />
+          </label>
+          <label style="display: block;">
+            <span style="display: block; font-family: 'Space Mono', monospace; font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.82 0.14 85 / 0.6); margin-bottom: 7px;">Cliente (opcional)</span>
+            <select style="width: 100%; background: oklch(0.14 0.03 265); color: oklch(0.9 0.03 82); border: 1px solid oklch(0.82 0.14 85 / 0.3); padding: 10px 12px; font-family: 'Space Mono', monospace; font-size: 12px; outline: none;">
+              <option>— Sem cliente vinculado —</option>
+              <option>Marina Alvarenga</option>
+              <option>Júlia Prado</option>
+            </select>
+          </label>
+          <div>
+            <span style="display: block; font-family: 'Space Mono', monospace; font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.82 0.14 85 / 0.6); margin-bottom: 7px;">Posições desta tiragem</span>
+            <p style="font-size: 15px; color: oklch(0.72 0.02 250); font-style: italic; margin: 0 0 8px;">{{ spDesc }}</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+              <sc-for list="{{ positions }}" as="p" hint-placeholder-count="3">
+                <span style="font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.82 0.14 85 / 0.8); border: 1px solid oklch(0.82 0.14 85 / 0.25); padding: 3px 9px;">{{ p }}</span>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;">
+          <button onClick="{{ sortear }}" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, oklch(0.86 0.14 88), oklch(0.72 0.14 78)); color: oklch(0.16 0.03 260); border: none; padding: 11px 20px; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; font-weight: 700;">↻ &nbsp;Nova tiragem</button>
+          <button onClick="{{ reset }}" style="display: inline-flex; align-items: center; gap: 8px; background: transparent; color: oklch(0.82 0.14 85 / 0.8); border: 1px solid oklch(0.82 0.14 85 / 0.3); padding: 11px 20px; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer;">✕ &nbsp;Recomeçar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 2 · LÂMINAS -->
+    <section style="margin-bottom: 46px;">
+      <div style="font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: oklch(0.82 0.14 85 / 0.6); margin-bottom: 8px;">Etapa 2 · Lâminas</div>
+      <h2 style="font-size: 30px; font-weight: 500; margin: 0 0 4px; color: oklch(0.93 0.02 82);">Lâminas da tiragem</h2>
+      <p style="font-size: 16px; color: oklch(0.7 0.02 250); margin: 0 0 22px; font-style: italic;">Toque em uma carta para abrir o aprofundamento simbólico completo.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 18px;">
+        <sc-for list="{{ drawnCards }}" as="c" hint-placeholder-count="3">
+          <figure style="margin: 0; perspective: 1200px;">
+            <div style="animation: bc-reveal 0.8s cubic-bezier(0.2,0.7,0.3,1) both; animation-delay: {{ c.delay }};">
+              <div style="position: relative; aspect-ratio: 512 / 768; border: 1px solid oklch(0.82 0.14 85 / 0.4); overflow: hidden; box-shadow: 0 16px 34px -12px oklch(0 0 0 / 0.75), 0 0 22px -14px oklch(0.82 0.14 85 / 0.5); background: oklch(0.16 0.04 265);">
+                <img src="{{ c.img }}" alt="{{ c.nome }}" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+              </div>
+              <figcaption style="text-align: center; margin-top: 10px;">
+                <div style="font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 0.28em; color: oklch(0.82 0.14 85 / 0.7); text-transform: uppercase;">{{ c.posicao }}</div>
+                <div style="font-size: 21px; color: oklch(0.9 0.05 84); margin-top: 2px;"><span style="font-family: 'Space Mono', monospace; font-size: 11px; color: oklch(0.82 0.14 85 / 0.55); margin-right: 6px;">{{ c.numero }}</span>{{ c.nome }}</div>
+                <div style="font-size: 14px; color: oklch(0.72 0.12 200); font-style: italic;">{{ c.palavra }}</div>
+              </figcaption>
+            </div>
+          </figure>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- ETAPA 3 · MESA -->
+    <section style="margin-bottom: 46px;">
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 4px;">
+        <div>
+          <div style="font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: oklch(0.82 0.14 85 / 0.6); margin-bottom: 8px;">Etapa 3 · Mesa</div>
+          <h2 style="font-size: 30px; font-weight: 500; margin: 0; color: oklch(0.93 0.02 82);">Mesa cerimonial</h2>
+        </div>
+        <button style="display: inline-flex; align-items: center; gap: 8px; background: transparent; color: oklch(0.72 0.12 200); border: 1px solid oklch(0.72 0.12 200 / 0.4); padding: 9px 16px; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer;">⇱ &nbsp;Compartilhar</button>
+      </div>
+      <p style="font-size: 16px; color: oklch(0.7 0.02 250); margin: 4px 0 22px; font-style: italic;">A composição visual da tiragem, pronta para contemplação e compartilhamento.</p>
+
+      <div style="position: relative; border: 1px solid oklch(0.82 0.14 85 / 0.28); overflow: hidden; box-shadow: inset 0 0 0 6px oklch(0.09 0.03 265), inset 0 0 0 7px oklch(0.82 0.14 85 / 0.3), inset 0 0 90px 12px oklch(0 0 0 / 0.55);">
+        <img src="src/assets/baralho-cigano/mesa-bg-veludo.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.9;" />
+        <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 44%, oklch(0.26 0.06 265 / 0.35) 0%, oklch(0.08 0.04 265 / 0.82) 78%);"></div>
+        <!-- rotating guide ring -->
+        <div style="position: absolute; left: 50%; top: 50%; width: 380px; height: 380px; transform: translate(-50%,-50%); animation: bc-spin 120s linear infinite; pointer-events: none; opacity: 0.5;">
+          <svg viewBox="0 0 400 400" width="380" height="380" fill="none" stroke="oklch(0.82 0.14 85)" stroke-opacity="0.3" stroke-width="0.7"><circle cx="200" cy="200" r="180"/><circle cx="200" cy="200" r="132"/><g stroke-dasharray="3 6"><circle cx="200" cy="200" r="90"/></g></svg>
+        </div>
+
+        <div style="position: relative; padding: 44px 24px;">
+          <div style="text-align: center; margin-bottom: 28px;">
+            <div style="display: inline-flex; align-items: center; gap: 12px; padding: 5px 22px; border-top: 1px solid oklch(0.82 0.14 85 / 0.45); border-bottom: 1px solid oklch(0.82 0.14 85 / 0.45); background: linear-gradient(180deg, oklch(0.82 0.14 85 / 0.06), transparent 60%, oklch(0.82 0.14 85 / 0.06));">
+              <span style="font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: oklch(0.86 0.1 85 / 0.85);">{{ mesaTitulo }}</span>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: center; align-items: flex-start; gap: 22px; flex-wrap: wrap;">
+            <sc-for list="{{ mesaCards }}" as="c" hint-placeholder-count="3">
+              <div style="width: 150px; animation: bc-reveal 0.9s cubic-bezier(0.2,0.7,0.3,1) both; animation-delay: {{ c.delay }};">
+                <div style="position: relative; aspect-ratio: 512 / 768; border: 1px solid oklch(0.86 0.12 85 / 0.55); overflow: hidden; box-shadow: 0 22px 44px -14px oklch(0 0 0 / 0.85);">
+                  <img src="{{ c.img }}" alt="{{ c.nome }}" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+                </div>
+                <div style="font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: oklch(0.84 0.1 85 / 0.75); text-align: center; margin-top: 9px;">{{ c.posicao }}</div>
+                <div style="font-size: 16px; color: oklch(0.9 0.05 84); text-align: center;">{{ c.nome }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <span style="position: absolute; top: 10px; left: 10px; width: 22px; height: 22px; border-top: 1px solid oklch(0.82 0.14 85 / 0.7); border-left: 1px solid oklch(0.82 0.14 85 / 0.7);"></span>
+        <span style="position: absolute; top: 10px; right: 10px; width: 22px; height: 22px; border-top: 1px solid oklch(0.82 0.14 85 / 0.7); border-right: 1px solid oklch(0.82 0.14 85 / 0.7);"></span>
+        <span style="position: absolute; bottom: 10px; left: 10px; width: 22px; height: 22px; border-bottom: 1px solid oklch(0.82 0.14 85 / 0.7); border-left: 1px solid oklch(0.82 0.14 85 / 0.7);"></span>
+        <span style="position: absolute; bottom: 10px; right: 10px; width: 22px; height: 22px; border-bottom: 1px solid oklch(0.82 0.14 85 / 0.7); border-right: 1px solid oklch(0.82 0.14 85 / 0.7);"></span>
+      </div>
+    </section>
+
+    <!-- ETAPA 4 · SÍNTESE -->
+    <section style="margin-bottom: 46px;">
+      <div style="font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: oklch(0.82 0.14 85 / 0.6); margin-bottom: 8px;">Etapa 4 · Síntese</div>
+      <h2 style="font-size: 30px; font-weight: 500; margin: 0 0 4px; color: oklch(0.93 0.02 82);">Síntese da leitura</h2>
+      <p style="font-size: 16px; color: oklch(0.7 0.02 250); margin: 0 0 22px; font-style: italic;">Polaridade dominante, categorias e parágrafo interpretativo.</p>
+
+      <div style="position: relative; background: linear-gradient(180deg, oklch(0.21 0.03 250 / 0.6), oklch(0.14 0.025 250 / 0.75)); border: 1px solid oklch(0.82 0.14 85 / 0.22); padding: 26px; backdrop-filter: blur(8px);">
+        <div style="display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 20px;">
+          <div style="flex: 1; min-width: 180px; border: 1px solid oklch(0.82 0.14 85 / 0.2); padding: 14px 16px; background: oklch(0.16 0.03 260 / 0.5);">
+            <div style="font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: oklch(0.82 0.14 85 / 0.6); margin-bottom: 6px;">Polaridade dominante</div>
+            <div style="font-size: 22px; color: {{ polColor }};">{{ polaridadeLabel }}</div>
+          </div>
+          <div style="flex: 2; min-width: 240px; border: 1px solid oklch(0.82 0.14 85 / 0.2); padding: 14px 16px; background: oklch(0.16 0.03 260 / 0.5);">
+            <div style="font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: oklch(0.82 0.14 85 / 0.6); margin-bottom: 10px;">Categorias dominantes</div>
+            <sc-for list="{{ categorias }}" as="cat" hint-placeholder-count="2">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                <span style="font-size: 15px; color: oklch(0.88 0.03 82); width: 84px;">{{ cat.nome }}</span>
+                <span style="flex: 1; height: 5px; background: oklch(0.3 0.03 260); position: relative; overflow: hidden;"><span style="position: absolute; inset: 0 auto 0 0; width: {{ cat.pct }}; background: linear-gradient(90deg, oklch(0.82 0.14 85), oklch(0.72 0.12 200));"></span></span>
+                <span style="font-family: 'Space Mono', monospace; font-size: 11px; color: oklch(0.82 0.14 85 / 0.8); width: 34px; text-align: right;">{{ cat.pct }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="height: 1px; background: linear-gradient(90deg, transparent, oklch(0.82 0.14 85 / 0.4), transparent); margin: 4px 0 18px;"></div>
+        <p style="font-size: 19px; line-height: 1.62; color: oklch(0.9 0.02 82); margin: 0; text-wrap: pretty;">{{ paragrafo }}</p>
+      </div>
+    </section>
+
+    <!-- ETAPA 5 · SALVAR -->
+    <section>
+      <div style="font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: oklch(0.82 0.14 85 / 0.6); margin-bottom: 8px;">Etapa 5 · Registro</div>
+      <h2 style="font-size: 30px; font-weight: 500; margin: 0 0 4px; color: oklch(0.93 0.02 82);">Salvar &amp; exportar</h2>
+      <p style="font-size: 16px; color: oklch(0.7 0.02 250); margin: 0 0 22px; font-style: italic;">Nada é salvo sem o seu consentimento. O registro fica somente neste dispositivo.</p>
+
+      <div style="position: relative; background: oklch(0.18 0.04 265 / 0.55); border: 1px solid oklch(0.82 0.14 85 / 0.2); padding: 22px;">
+        <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 16px; color: oklch(0.86 0.02 82); cursor: pointer;">
+          <input type="checkbox" checked style="accent-color: oklch(0.82 0.14 85); margin-top: 4px;" />
+          <span>Autorizo o armazenamento desta leitura no meu navegador. Posso apagá-la a qualquer momento.</span>
+        </label>
+        <div style="display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap;">
+          <button style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, oklch(0.86 0.14 88), oklch(0.72 0.14 78)); color: oklch(0.16 0.03 260); border: none; padding: 11px 20px; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer; font-weight: 700;">⤓ &nbsp;Salvar leitura</button>
+          <button style="display: inline-flex; align-items: center; gap: 8px; background: transparent; color: oklch(0.82 0.14 85 / 0.85); border: 1px solid oklch(0.82 0.14 85 / 0.3); padding: 11px 20px; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer;">⎙ &nbsp;Baixar PDF</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer style="position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 30px 22px 46px;">
+    <div style="height: 1px; background: linear-gradient(90deg, transparent, oklch(0.82 0.14 85 / 0.4), transparent); margin-bottom: 16px;"></div>
+    <p style="font-size: 13px; color: oklch(0.66 0.02 250); text-align: center; max-width: 60ch; margin: 0 auto;">Material simbólico e espiritual para autoconhecimento. Mapa ≠ destino. Não substitui orientação médica, psicológica, jurídica ou financeira.</p>
+    <p style="margin: 10px 0 0; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase; color: oklch(0.82 0.14 85 / 0.4); text-align: center;">✦ tecnomancia contemplativa ✦</p>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  CARDS = [
+    [1,"Cavaleiro","Notícias","01-cavaleiro","luz","Trabalho"],
+    [2,"Trevo","Sorte","02-trevo","luz","Material"],
+    [3,"Navio","Viagem","03-navio","neutra","Trabalho"],
+    [4,"Casa","Lar","04-casa","luz","Material"],
+    [5,"Árvore","Saúde","05-arvore","neutra","Espírito"],
+    [6,"Nuvens","Confusão","06-nuvens","sombra","Espírito"],
+    [7,"Cobra","Traição","07-cobra","sombra","Amor"],
+    [8,"Caixão","Fim","08-caixao","sombra","Espírito"],
+    [9,"Buquê","Alegria","09-buque","luz","Amor"],
+    [10,"Foice","Corte","10-foice","sombra","Trabalho"],
+    [11,"Chicote","Conflito","11-chicote","sombra","Amor"],
+    [12,"Pássaros","Conversas","12-passaros","neutra","Amor"],
+    [13,"Criança","Começo","13-crianca","luz","Espírito"],
+    [14,"Raposa","Astúcia","14-raposa","sombra","Trabalho"],
+    [15,"Urso","Poder","15-urso","neutra","Material"],
+    [16,"Estrelas","Esperança","16-estrelas","luz","Espírito"],
+    [17,"Cegonha","Mudança","17-cegonha","luz","Trabalho"],
+    [18,"Cão","Amizade","18-cao","luz","Amor"],
+    [19,"Torre","Isolamento","19-torre","sombra","Trabalho"],
+    [20,"Jardim","Público","20-jardim","neutra","Trabalho"],
+    [21,"Montanha","Obstáculo","21-montanha","sombra","Trabalho"],
+    [22,"Caminhos","Escolha","22-caminhos","neutra","Espírito"],
+    [23,"Ratos","Perda","23-ratos","sombra","Material"],
+    [24,"Coração","Amor","24-coracao","luz","Amor"],
+    [25,"Anel","Compromisso","25-anel","luz","Amor"],
+    [26,"Livro","Segredo","26-livro","neutra","Espírito"],
+    [27,"Carta","Mensagem","27-carta","neutra","Trabalho"],
+    [28,"Homem","Presença","28-homem","neutra","Amor"],
+    [29,"Mulher","Presença","29-mulher","neutra","Amor"],
+    [30,"Lírio","Serenidade","30-lirio","luz","Espírito"],
+    [31,"Sol","Sucesso","31-sol","luz","Material"],
+    [32,"Lua","Reconhecimento","32-lua","luz","Trabalho"],
+    [33,"Chave","Solução","33-chave","luz","Espírito"],
+    [34,"Peixes","Abundância","34-peixes","luz","Material"],
+    [35,"Âncora","Estabilidade","35-ancora","luz","Trabalho"],
+    [36,"Cruz","Destino","36-cruz","sombra","Espírito"],
+  ];
+
+  SPREADS = {
+    "1": { label: "Foco Único · 1", count: 1, desc: "Uma lâmina que condensa a pergunta em sua essência.", pos: ["Essência"], titulo: "Foco Único" },
+    "3": { label: "Passado · Presente · Futuro · 3", count: 3, desc: "O eixo temporal da consulta em três lâminas.", pos: ["Passado","Presente","Futuro"], titulo: "Tríade do Tempo" },
+    "5": { label: "Cruz Cigana · 5", count: 5, desc: "Situação, desafio, raiz, passado e desfecho.", pos: ["Situação","Desafio","Raiz","Passado","Desfecho"], titulo: "Cruz Cigana" },
+    "9": { label: "Mandala · 9", count: 9, desc: "Nove casas que desenham o campo completo do tema.", pos: ["Casa 1","Casa 2","Casa 3","Casa 4","Centro","Casa 6","Casa 7","Casa 8","Casa 9"], titulo: "Mandala das Nove Casas" },
+  };
+
+  state = {
+    modo: "automatica",
+    spreadKey: "3",
+    tema: "reconciliação amorosa",
+    drawnNums: [3, 24, 31],
+  };
+
+  stars = Array.from({ length: 46 }, () => ({
+    x: (Math.random() * 100).toFixed(2) + "%",
+    y: (Math.random() * 100).toFixed(2) + "%",
+    dur: (2.5 + Math.random() * 4).toFixed(1) + "s",
+    delay: (Math.random() * 4).toFixed(1) + "s",
+  }));
+
+  cardByNum(n) { return this.CARDS.find((c) => c[0] === n); }
+
+  drawFor(key) {
+    const count = this.SPREADS[key].count;
+    const pool = this.CARDS.map((c) => c[0]);
+    const picked = [];
+    while (picked.length < count) {
+      const n = pool[Math.floor(Math.random() * pool.length)];
+      if (!picked.includes(n)) picked.push(n);
+    }
+    return picked;
+  }
+
+  sortear = () => this.setState({ drawnNums: this.drawFor(this.state.spreadKey) });
+  reset = () => this.setState({ drawnNums: this.drawFor(this.state.spreadKey) });
+  setAuto = () => this.setState({ modo: "automatica" });
+  setManual = () => this.setState({ modo: "manual" });
+  onSpread = (e) => { const k = e.target.value; this.setState({ spreadKey: k, drawnNums: this.drawFor(k) }); };
+  onTema = (e) => this.setState({ tema: e.target.value });
+
+  renderVals() {
+    const sp = this.SPREADS[this.state.spreadKey];
+    const nums = this.state.drawnNums;
+    const cards = nums.map((n, i) => {
+      const c = this.cardByNum(n);
+      return {
+        key: n + "-" + i,
+        img: "src/assets/baralho-cigano/" + c[3] + ".jpg",
+        numero: String(c[0]).padStart(2, "0"),
+        nome: c[1],
+        palavra: c[2],
+        pol: c[4],
+        cat: c[5],
+        posicao: sp.pos[i] || "Carta " + (i + 1),
+        delay: (i * 150) + "ms",
+      };
+    });
+
+    // polaridade
+    const luz = cards.filter((c) => c.pol === "luz").length;
+    const sombra = cards.filter((c) => c.pol === "sombra").length;
+    let polaridadeLabel, polColor;
+    if (luz > sombra) { polaridadeLabel = "Luz predominante"; polColor = "oklch(0.86 0.12 85)"; }
+    else if (sombra > luz) { polaridadeLabel = "Sombra a integrar"; polColor = "oklch(0.72 0.12 200)"; }
+    else { polaridadeLabel = "Equilíbrio tenso"; polColor = "oklch(0.86 0.05 82)"; }
+
+    // categorias
+    const counts = {};
+    cards.forEach((c) => { counts[c.cat] = (counts[c.cat] || 0) + 1; });
+    const total = cards.length || 1;
+    const categorias = Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3)
+      .map(([nome, n]) => ({ nome, pct: Math.round((n / total) * 100) + "%" }));
+
+    // parágrafo
+    const temaTxt = this.state.tema.trim();
+    let paragrafo;
+    if (cards.length >= 3) {
+      const a = cards[0], m = cards[Math.floor(cards.length / 2)], z = cards[cards.length - 1];
+      paragrafo = "A leitura abre-se com " + a.nome + " na posição de " + a.posicao.toLowerCase() +
+        ", sinal de " + a.palavra.toLowerCase() + ". No coração da mesa, " + m.nome +
+        " traz " + m.palavra.toLowerCase() + " como força que atravessa a consulta" +
+        (temaTxt ? " sobre " + temaTxt : "") + ". O desfecho, guardado por " + z.nome +
+        ", aponta para " + z.palavra.toLowerCase() + " — um convite a caminhar com presença.";
+    } else {
+      const a = cards[0];
+      paragrafo = a ? (a.nome + " responde à consulta" + (temaTxt ? " sobre " + temaTxt : "") +
+        " com o tema de " + a.palavra.toLowerCase() + ", pedindo contemplação serena antes de qualquer gesto.") : "";
+    }
+
+    // stepper
+    const stepLabels = ["Preparar", "Lâminas", "Mesa", "Síntese", "Salvar"];
+    const steps = stepLabels.map((label, i) => ({
+      label,
+      num: String(i + 1).padStart(2, "0"),
+      border: "oklch(0.82 0.14 85 / 0.35)",
+      bg: "oklch(0.82 0.14 85 / 0.1)",
+      color: "oklch(0.86 0.1 85)",
+      numColor: "oklch(0.82 0.14 85 / 0.7)",
+    }));
+
+    const activeBtn = "display: inline-flex; align-items: center; justify-content: center; padding: 11px 14px; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; cursor: pointer; border: 1px solid oklch(0.82 0.14 85); background: oklch(0.82 0.14 85); color: oklch(0.18 0.04 265);";
+    const idleBtn = "display: inline-flex; align-items: center; justify-content: center; padding: 11px 14px; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; cursor: pointer; border: 1px solid oklch(0.82 0.14 85 / 0.4); background: transparent; color: oklch(0.82 0.14 85);";
+
+    const spreadOptions = Object.entries(this.SPREADS).map(([key, s]) => ({ key, label: s.label }));
+
+    return {
+      stars: this.stars,
+      steps,
+      modo: this.state.modo,
+      setAuto: this.setAuto,
+      setManual: this.setManual,
+      autoBtnStyle: this.state.modo === "automatica" ? activeBtn : idleBtn,
+      manualBtnStyle: this.state.modo === "manual" ? activeBtn : idleBtn,
+      spreadKey: this.state.spreadKey,
+      spreadOptions,
+      onSpread: this.onSpread,
+      spDesc: sp.desc,
+      positions: sp.pos,
+      tema: this.state.tema,
+      onTema: this.onTema,
+      sortear: this.sortear,
+      reset: this.reset,
+      drawnCards: cards,
+      mesaCards: cards,
+      mesaTitulo: sp.titulo + (temaTxt ? " · " + temaTxt : ""),
+      polaridadeLabel,
+      polColor,
+      categorias,
+      paragrafo,
+    };
+  }
+}
+</script>
+</body>
+</html>

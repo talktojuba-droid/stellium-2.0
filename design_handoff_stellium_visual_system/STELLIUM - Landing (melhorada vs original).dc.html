@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="design_doc_mode" content="canvas">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&amp;family=Space+Mono:wght@400;700&amp;family=Orbitron:wght@400;500;700;900&amp;family=Chakra+Petch:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body { background: oklch(0.1 0.02 258); font-family: "Cormorant Garamond", ui-serif, Georgia, serif; color: oklch(0.94 0.015 80); }
+    @keyframes st-twinkle { 0%,100% { opacity: 0.15; transform: scale(0.8); } 50% { opacity: 0.95; transform: scale(1.2); } }
+    @keyframes st-pulse { 0%,100% { opacity: 0.55; } 50% { opacity: 1; } }
+    @keyframes st-spin { to { transform: rotate(360deg); } }
+    @keyframes st-spin-rev { to { transform: rotate(-360deg); } }
+    @keyframes st-blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+    @keyframes st-neon { 0%,100% { opacity: 0.55; } 50% { opacity: 1; } }
+    @keyframes st-sweep { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+    @keyframes st-float { 0%,100% { transform: translateY(0) rotate(0deg); opacity: 0.5; } 50% { transform: translateY(-14px) rotate(8deg); opacity: 0.95; } }
+    @keyframes st-shimmer { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+    @keyframes st-breathe { 0%,100% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.06); opacity: 1; } }
+    @keyframes st-orbit { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+</helmet>
+
+<section id="1a" style="position: relative; margin: 40px auto 12px; width: 1180px;">
+  <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+    <span style="font-family: 'Chakra Petch', monospace; font-size: 12px; letter-spacing: 0.1em; font-weight: 700; color: oklch(0.14 0.04 320); background: oklch(0.72 0.24 350); padding: 4px 12px; border-radius: 999px;">1a</span>
+    <span style="font-family: 'Chakra Petch', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: oklch(0.82 0.02 320);">Landing · design aprovado (cyber-místico) <span style="color: oklch(0.72 0.24 350 / 0.9);">✦ pronto p/ o site</span></span>
+  </div>
+
+  <div style="position: relative; width: 1180px; border: 1px solid oklch(0.72 0.24 350 / 0.35); border-radius: 10px; background: oklch(0.11 0.04 305); overflow: hidden; box-shadow: 0 40px 100px -30px oklch(0 0 0 / 0.9), 0 0 70px -30px oklch(0.68 0.24 340 / 0.5);">
+    
+
+    <!-- top nav -->
+    
+
+    <!-- hero -->
+    <div style="position: relative; overflow: hidden; border-bottom: 1px solid oklch(0.72 0.24 350 / 0.2); background: radial-gradient(ellipse at 50% 40%, oklch(0.2 0.09 315) 0%, oklch(0.09 0.035 305) 74%);">
+      <div style="position: absolute; inset: 0; z-index: 1; pointer-events: none;">{{ stars }}</div>
+
+      <!-- floating symbols -->
+      <div id="lp-syms" style="position: absolute; inset: 0; pointer-events: none; z-index: 2;">
+        <span style="position: absolute; left: 12%; top: 24%; font-size: 22px; color: oklch(0.86 0.14 90 / 0.7); animation: st-float 7s ease-in-out infinite;">✦</span>
+        <span style="position: absolute; left: 84%; top: 20%; font-size: 16px; color: oklch(0.82 0.13 195 / 0.75); animation: st-float 9s ease-in-out infinite; animation-delay: 1.5s;">✧</span>
+        <span style="position: absolute; left: 78%; top: 62%; font-size: 26px; color: oklch(0.86 0.13 90 / 0.6); animation: st-float 8s ease-in-out infinite; animation-delay: 0.8s;">☽</span>
+        <span style="position: absolute; left: 16%; top: 66%; font-size: 20px; color: oklch(0.82 0.13 195 / 0.65); animation: st-float 10s ease-in-out infinite; animation-delay: 2.2s;">⟡</span>
+        <span style="position: absolute; left: 46%; top: 14%; font-size: 15px; color: oklch(0.85 0.14 350 / 0.6); animation: st-float 6.5s ease-in-out infinite; animation-delay: 1.1s;">✵</span>
+        <span style="position: absolute; left: 30%; top: 78%; font-size: 17px; color: oklch(0.78 0.18 335 / 0.55); animation: st-float 8.5s ease-in-out infinite; animation-delay: 0.4s;">❋</span>
+      </div>
+
+      <!-- Aquário · Cântaro (Water Jar) — asterismo fiel: ζ no centro do Y com γ,η,π; ombros α,β; fluxo até Fomalhaut -->
+      <div id="lp-const" style="position: absolute; left: 3%; top: 13%; width: 320px; height: 270px; pointer-events: none; z-index: 2; opacity: 0.92; animation: st-breathe 9s ease-in-out infinite;">
+        <svg viewBox="0 0 320 260" width="320" height="270" style="overflow: visible; filter: drop-shadow(0 0 7px oklch(0.72 0.24 350 / 0.4));">
+          <g fill="none" stroke="oklch(0.85 0.15 345 / 0.4)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.5 4">
+            <path d="M152,96 L152,58"></path><path d="M152,96 L184,118"></path><path d="M152,96 L120,118"></path>
+            <path d="M98,60 L152,58"></path><path d="M98,60 L56,84"></path>
+            <path d="M120,118 L122,150 L150,172 L128,196 L158,214 L144,232"></path>
+          </g>
+          <g fill="oklch(0.8 0.2 345 / 0.14)"><circle cx="152" cy="96" r="9"></circle><circle cx="98" cy="60" r="9"></circle><circle cx="56" cy="84" r="9"></circle></g>
+          <g fill="oklch(0.92 0.11 348)">
+            <circle cx="152" cy="96" r="3.2" style="animation: st-pulse 3.4s ease-in-out infinite;"></circle>
+            <circle cx="152" cy="58" r="2.4" style="animation: st-pulse 3.8s ease-in-out infinite; animation-delay: 1.1s;"></circle>
+            <circle cx="184" cy="118" r="2.2"></circle>
+            <circle cx="120" cy="118" r="2.2"></circle>
+            <circle cx="98" cy="60" r="3" style="animation: st-pulse 4.2s ease-in-out infinite; animation-delay: 0.6s;"></circle>
+            <circle cx="56" cy="84" r="3.2" style="animation: st-pulse 3.2s ease-in-out infinite; animation-delay: 1.2s;"></circle>
+            <circle cx="122" cy="150" r="1.5"></circle><circle cx="150" cy="172" r="1.4"></circle><circle cx="128" cy="196" r="1.5"></circle><circle cx="158" cy="214" r="1.5"></circle>
+            <circle cx="144" cy="232" r="2.3" style="animation: st-pulse 3.6s ease-in-out infinite; animation-delay: 0.3s;"></circle>
+          </g>
+        </svg>
+      </div>
+
+      <!-- sacred geometry · flor da vida + hexágono/hexagrama -->
+      <div id="lp-geo" style="position: absolute; left: 50%; top: 50%; width: 580px; height: 580px; transform: translate(-50%,-50%); pointer-events: none; opacity: 0.6; z-index: 1;">
+        <div style="position: absolute; inset: 0; animation: st-orbit 200s linear infinite;">{{ geoFlower }}</div>
+        <div style="position: absolute; inset: 0; animation: st-spin-rev 130s linear infinite;">{{ geoStar }}</div>
+        <div style="position: absolute; left: 50%; top: 50%; width: 300px; height: 300px; transform: translate(-50%,-50%); border-radius: 50%; background: radial-gradient(circle, oklch(0.68 0.24 345 / 0.2), transparent 62%); animation: st-breathe 7s ease-in-out infinite;"></div>
+      </div>
+
+      <div style="position: relative; text-align: center; padding: 100px 24px; z-index: 3;">
+        <div style="display: inline-flex; align-items: center; gap: 12px; margin-bottom: 24px; padding: 5px 16px; border: 1px solid oklch(0.72 0.18 162 / 0.6); border-radius: 999px; background: oklch(0.72 0.24 350 / 0.05);">
+          <span style="width: 5px; height: 5px; border-radius: 50%; background: oklch(0.78 0.2 345); box-shadow: 0 0 8px oklch(0.78 0.2 345); animation: st-neon 2s ease-in-out infinite;"></span>
+          <span style="font-family: 'Chakra Petch', monospace; font-size: 10px; letter-spacing: 0.38em; text-transform: uppercase; color: oklch(0.68 0.24 300); text-shadow: 0 0 8px oklch(0.6 0.26 300 / 0.6);">✦ OBSERVATORIUM ✦</span>
+        </div>
+        <h1 style="font-family: 'Orbitron', sans-serif; font-size: 76px; line-height: 1; font-weight: 500; letter-spacing: 0.16em; margin: 0; background: linear-gradient(100deg, oklch(0.86 0.16 345), oklch(0.78 0.2 315), oklch(0.88 0.13 88), oklch(0.83 0.14 195), oklch(0.86 0.16 345)); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; animation: st-shimmer 6s linear infinite; filter: drop-shadow(0 0 34px oklch(0.7 0.22 345 / 0.5));">STELLIUM</h1>
+        <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 24px; letter-spacing: 0.04em; color: oklch(0.9 0.08 340 / 0.9); margin: 22px auto 0; max-width: 40ch; min-height: 1.4em;">{{ typedCaption }}<span style="display: inline-block; width: 9px; margin-left: 2px; color: oklch(0.78 0.2 345); animation: st-blink 1s step-end infinite;">▊</span></p>
+
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 46px;">
+          <span style="padding: 15px 32px; border-radius: 999px; border: 1px solid oklch(0.72 0.24 350 / 0.7); color: oklch(0.86 0.17 345); font-family: 'Chakra Petch', monospace; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 600; box-shadow: 0 0 26px -6px oklch(0.72 0.24 350), inset 0 0 20px -14px oklch(0.72 0.24 350); background: oklch(0.72 0.24 350 / 0.07); cursor: pointer; transition: transform 0.25s, box-shadow 0.25s;" style-hover="transform: translateY(-3px); box-shadow: 0 0 42px -4px oklch(0.72 0.24 350), inset 0 0 24px -12px oklch(0.72 0.24 350);">Experimente</span>
+          <span style="padding: 15px 32px; border-radius: 999px; border: 1px solid oklch(0.83 0.14 88 / 0.6); color: oklch(0.86 0.13 88); font-family: 'Chakra Petch', monospace; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 600; box-shadow: 0 0 22px -8px oklch(0.83 0.14 88); cursor: pointer; transition: transform 0.25s, box-shadow 0.25s;" style-hover="transform: translateY(-3px); box-shadow: 0 0 38px -4px oklch(0.83 0.14 88);">Portal</span>
+          <span style="padding: 15px 32px; border-radius: 999px; border: 1px solid oklch(0.83 0.13 195 / 0.55); color: oklch(0.84 0.13 195); font-family: 'Chakra Petch', monospace; font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: transform 0.25s, box-shadow 0.25s;" style-hover="transform: translateY(-3px); box-shadow: 0 0 34px -6px oklch(0.83 0.13 195);">Escada</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- interactive daily card -->
+    <div style="position: relative; z-index: 2; padding: 50px 40px 10px; text-align: center;">
+      <div style="display: inline-flex; align-items: center; gap: 12px; margin-bottom: 6px;">
+        <span style="height: 1px; width: 40px; background: linear-gradient(90deg, transparent, oklch(0.72 0.24 350 / 0.5));"></span>
+        <span style="font-family: 'Chakra Petch', monospace; font-size: 10px; letter-spacing: 0.34em; text-transform: uppercase; color: oklch(0.82 0.16 345 / 0.8);">✧ Sua carta do dia ✧</span>
+        <span style="height: 1px; width: 40px; background: linear-gradient(90deg, oklch(0.72 0.24 350 / 0.5), transparent);"></span>
+      </div>
+      <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; color: oklch(0.72 0.04 320); margin: 0 0 22px;">Toque a carta para o oráculo revelar seu sinal.</p>
+
+      <div onClick="{{ flipDaily }}" style="width: 172px; height: 258px; margin: 0 auto; perspective: 1100px; cursor: pointer;">
+        <div style="position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.8s cubic-bezier(0.3,0.8,0.3,1); transform: {{ dailyTransform }};">
+          <div style="position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border: 1px solid oklch(0.72 0.24 350 / 0.5); border-radius: 18px; background: radial-gradient(circle at 50% 40%, oklch(0.24 0.1 315), oklch(0.12 0.05 305)); box-shadow: 0 20px 44px -14px oklch(0 0 0 / 0.8), 0 0 30px -10px oklch(0.68 0.24 345 / 0.6); display: flex; align-items: center; justify-content: center;">
+            <svg viewBox="0 0 100 100" width="120" height="120" style="animation: st-orbit 40s linear infinite;"><g fill="none" stroke="oklch(0.8 0.18 345)" stroke-opacity="0.55" stroke-width="0.7"><circle cx="50" cy="50" r="34"></circle><circle cx="50" cy="50" r="24"></circle><circle cx="50" cy="28" r="12"></circle><circle cx="69" cy="39" r="12"></circle><circle cx="69" cy="61" r="12"></circle><circle cx="50" cy="72" r="12"></circle><circle cx="31" cy="61" r="12"></circle><circle cx="31" cy="39" r="12"></circle></g><text x="50" y="56" text-anchor="middle" fill="oklch(0.86 0.16 345)" font-size="16" font-family="Cormorant Garamond, serif">✦</text></svg>
+          </div>
+          <div style="position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateY(180deg); border: 1px solid oklch(0.82 0.16 345 / 0.7); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: {{ dailyBg }}; box-shadow: 0 20px 44px -14px oklch(0 0 0 / 0.85), 0 0 34px -8px oklch(0.7 0.22 345 / 0.7);">
+            <span style="font-size: 40px; color: oklch(0.92 0.12 348); filter: drop-shadow(0 0 12px oklch(0.8 0.2 345));">{{ dailySym }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="min-height: 52px; margin-top: 18px;">
+        <sc-if value="{{ dailyRevealed }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="font-family: 'Cormorant Garamond', serif; font-size: 26px; color: oklch(0.9 0.1 345);">{{ dailyNome }}</div>
+            <div style="font-family: 'Chakra Petch', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.78 0.18 335 / 0.85);">{{ dailyPalavra }}</div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+
+    <!-- plans (degraus) -->
+    <div style="position: relative; z-index: 2; padding: 30px 48px 64px;">
+      <div style="text-align: center; margin-bottom: 42px;">
+        <h2 style="font-family: 'Chakra Petch', monospace; font-size: 13px; letter-spacing: 0.42em; text-transform: uppercase; color: oklch(0.85 0.14 340 / 0.85); margin: 0;">Três entradas no mesmo céu</h2>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 10px;">
+          <span style="height: 1px; width: 60px; background: linear-gradient(90deg, transparent, oklch(0.72 0.24 350 / 0.5));"></span>
+          <span style="font-family: 'Chakra Petch', monospace; font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: oklch(0.78 0.2 345 / 0.6);">✧ suba um degrau de cada vez ✧</span>
+          <span style="height: 1px; width: 60px; background: linear-gradient(90deg, oklch(0.72 0.24 350 / 0.5), transparent);"></span>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; align-items: stretch;">
+        <!-- Consulente -->
+        <article style="position: relative; padding: 32px 28px; display: flex; flex-direction: column; gap: 18px; background: linear-gradient(180deg, oklch(0.15 0.045 170 / 0.5), oklch(0.11 0.03 300 / 0.7)); border: 1px solid oklch(0.72 0.16 165 / 0.28); border-radius: 30px; transition: transform 0.3s, box-shadow 0.3s;" style-hover="transform: translateY(-6px); box-shadow: 0 0 40px -16px oklch(0.72 0.16 165 / 0.7); border-color: oklch(0.72 0.18 165 / 0.5);">
+          <span style="position: absolute; top: 11px; left: 11px; width: 14px; height: 14px; border-top: 1px solid oklch(0.75 0.16 165 / 0.55); border-left: 1px solid oklch(0.75 0.16 165 / 0.55); border-top-left-radius: 18px;"></span>
+          <span style="position: absolute; bottom: 11px; right: 11px; width: 14px; height: 14px; border-bottom: 1px solid oklch(0.75 0.16 165 / 0.55); border-right: 1px solid oklch(0.75 0.16 165 / 0.55); border-bottom-right-radius: 18px;"></span>
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-family: 'Orbitron', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; color: oklch(0.75 0.16 165 / 0.6);">☾ I</span>
+            <span style="font-family: 'Chakra Petch', monospace; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: oklch(0.72 0.14 165 / 0.78);">o limiar</span>
+          </div>
+          <header>
+            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 500; margin: 0; color: oklch(0.9 0.08 168);">Consulente</h3>
+            <p style="font-size: 14.5px; font-style: italic; color: oklch(0.68 0.03 320); margin: 5px 0 0;">Para quem quer consultar antes de estudar.</p>
+          </header>
+          <div style="font-family: 'Orbitron', sans-serif; font-size: 25px; font-weight: 400; color: oklch(0.85 0.14 165); letter-spacing: 0.04em;">GRATUITO</div>
+          <div style="height: 1px; background: linear-gradient(90deg, oklch(0.72 0.16 165 / 0.4), transparent);"></div>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 11px; flex: 1;">
+            <li style="display: flex; gap: 10px; font-size: 14.5px; color: oklch(0.76 0.03 320); line-height: 1.4;"><span style="color: oklch(0.75 0.16 165 / 0.85);">✧</span><span>Leituras avulsas (R$ 12,30 a R$ 167)</span></li>
+            <li style="display: flex; gap: 10px; font-size: 14.5px; color: oklch(0.76 0.03 320); line-height: 1.4;"><span style="color: oklch(0.75 0.16 165 / 0.85);">✧</span><span>Videochamada com A Sacerdotisa</span></li>
+            <li style="display: flex; gap: 10px; font-size: 14.5px; color: oklch(0.76 0.03 320); line-height: 1.4;"><span style="color: oklch(0.75 0.16 165 / 0.85);">✧</span><span>Histórico dos seus pedidos</span></li>
+          </ul>
+          <span style="text-align: center; padding: 12px; border-radius: 999px; font-family: 'Chakra Petch', monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 600; border: 1px solid oklch(0.72 0.16 165 / 0.5); color: oklch(0.82 0.16 165); cursor: pointer;">Cruzar o limiar</span>
+        </article>
+
+        <!-- Observatório featured -->
+        <article style="position: relative; padding: 34px 30px; display: flex; flex-direction: column; gap: 18px; background: linear-gradient(180deg, oklch(0.24 0.11 330 / 0.55), oklch(0.13 0.05 308 / 0.7)); border: 1px solid oklch(0.72 0.24 350 / 0.6); border-radius: 32px; box-shadow: 0 0 54px -14px oklch(0.7 0.24 345 / 0.75), inset 0 0 30px -22px oklch(0.72 0.24 350); transform: translateY(-14px); transition: transform 0.3s, box-shadow 0.3s; overflow: hidden;" style-hover="transform: translateY(-22px); box-shadow: 0 0 70px -12px oklch(0.7 0.24 345 / 0.9);">
+          <span style="position: absolute; top: -1px; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, oklch(0.78 0.24 350), oklch(0.75 0.2 300), oklch(0.78 0.24 350), transparent); background-size: 200% 100%; animation: st-sweep 4s linear infinite;"></span>
+          <span style="position: absolute; top: -11px; left: 50%; transform: translateX(-50%); padding: 4px 14px; font-family: 'Chakra Petch', monospace; font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 600; background: oklch(0.17 0.06 320); border: 1px solid oklch(0.72 0.24 350 / 0.6); color: oklch(0.86 0.17 345); white-space: nowrap; box-shadow: 0 0 16px -4px oklch(0.72 0.24 350);">✦ mais escolhido</span>
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
+            <span style="font-family: 'Orbitron', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; color: oklch(0.78 0.2 345 / 0.65);">✦ II</span>
+            <span style="font-family: 'Chakra Petch', monospace; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: oklch(0.8 0.16 340 / 0.85);">a ascensão</span>
+          </div>
+          <header>
+            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 500; margin: 0; color: oklch(0.9 0.16 345);">Observatório</h3>
+            <p style="font-size: 15px; font-style: italic; color: oklch(0.78 0.05 330); margin: 5px 0 0;">Para quem decide aprender o céu inteiro.</p>
+          </header>
+          <div style="font-family: 'Orbitron', sans-serif; display: flex; align-items: baseline; gap: 6px;"><span style="font-size: 29px; font-weight: 500; color: oklch(0.9 0.16 345); letter-spacing: 0.02em;">R$ 33,30</span><span style="font-family: 'Chakra Petch', monospace; font-size: 12px; color: oklch(0.66 0.03 320);">/mês</span></div>
+          <div style="height: 1px; background: linear-gradient(90deg, oklch(0.72 0.24 350 / 0.5), transparent);"></div>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 11px; flex: 1;">
+            <li style="display: flex; gap: 10px; font-size: 14.5px; color: oklch(0.84 0.04 330); line-height: 1.4;"><span style="color: oklch(0.8 0.2 345);">✦</span><span>Acesso completo a todos os oráculos</span></li>
+            <li style="display: flex; gap: 10px; font-size: 14.5px; color: oklch(0.84 0.04 330); line-height: 1.4;"><span style="color: oklch(0.8 0.2 345);">✦</span><span>Histórico cruzado entre cartas e mapas</span></li>
+            <li style="display: flex; gap: 10px; font-size: 14.5px; color: oklch(0.84 0.04 330); line-height: 1.4;"><span style="color: oklch(0.8 0.2 345);">✦</span><span>Biblioteca + horóscopo do dia</span></li>
+            <li style="display: flex; gap: 10px; font-size: 14.5px; color: oklch(0.84 0.04 330); line-height: 1.4;"><span style="color: oklch(0.8 0.2 345);">✦</span><span>Navegação fluida, sem travas</span></li>
+          </ul>
+          <span style="text-align: center; padding: 13px; font-family: 'Chakra Petch', monospace; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 700; border-radius: 999px; background: linear-gradient(135deg, oklch(0.78 0.24 350), oklch(0.7 0.2 305)); color: oklch(0.14 0.04 320); box-shadow: 0 0 24px -6px oklch(0.72 0.24 350); cursor: pointer;">Ascender ✦</span>
+        </article>
+
+        <!-- Labor -->
+        <article style="position: relative; padding: 32px 28px; display: flex; flex-direction: column; gap: 18px; background: linear-gradient(180deg, oklch(0.16 0.05 305 / 0.55), oklch(0.11 0.035 300 / 0.7)); border: 1px solid oklch(0.68 0.18 300 / 0.28); border-radius: 30px; transition: transform 0.3s, box-shadow 0.3s;" style-hover="transform: translateY(-6px); box-shadow: 0 0 40px -16px oklch(0.68 0.2 300 / 0.7); border-color: oklch(0.68 0.2 300 / 0.5);">
+          <span style="position: absolute; top: 11px; left: 11px; width: 14px; height: 14px; border-top: 1px solid oklch(0.72 0.18 300 / 0.55); border-left: 1px solid oklch(0.72 0.18 300 / 0.55); border-top-left-radius: 18px;"></span>
+          <span style="position: absolute; bottom: 11px; right: 11px; width: 14px; height: 14px; border-bottom: 1px solid oklch(0.72 0.18 300 / 0.55); border-right: 1px solid oklch(0.72 0.18 300 / 0.55); border-bottom-right-radius: 18px;"></span>
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-family: 'Orbitron', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; color: oklch(0.72 0.18 300 / 0.6);">☽ III</span>
+            <span style="font-family: 'Chakra Petch', monospace; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: oklch(0.72 0.16 300 / 0.78);">o círculo</span>
+          </div>
+          <header>
+            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 500; margin: 0; color: oklch(0.88 0.1 300);">Labor Premium</h3>
+            <p style="font-size: 14.5px; font-style: italic; color: oklch(0.68 0.03 320); margin: 5px 0 0;">Para quem caminha em círculo, não sozinho.</p>
+          </header>
+          <div style="font-family: 'Orbitron', sans-serif; display: flex; align-items: baseline; gap: 6px;"><span style="font-size: 25px; font-weight: 400; color: oklch(0.82 0.16 300); letter-spacing: 0.02em;">R$ 77,70</span><span style="font-family: 'Chakra Petch', monospace; font-size: 12px; color: oklch(0.66 0.03 320);">/mês</span></div>
+          <div style="height: 1px; background: linear-gradient(90deg, oklch(0.68 0.18 300 / 0.4), transparent);"></div>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 11px; flex: 1;">
+            <li style="display: flex; gap: 10px; font-size: 14.5px; color: oklch(0.76 0.03 320); line-height: 1.4;"><span style="color: oklch(0.72 0.18 300 / 0.85);">✧</span><span>Tudo do Observatório</span></li>
+            <li style="display: flex; gap: 10px; font-size: 14.5px; color: oklch(0.76 0.03 320); line-height: 1.4;"><span style="color: oklch(0.72 0.18 300 / 0.85);">✧</span><span>Círculo Filosófico (fórum + blog)</span></li>
+            <li style="display: flex; gap: 10px; font-size: 14.5px; color: oklch(0.76 0.03 320); line-height: 1.4;"><span style="color: oklch(0.72 0.18 300 / 0.85);">✧</span><span>Comentários e perguntas à comunidade</span></li>
+            <li style="display: flex; gap: 10px; font-size: 14.5px; color: oklch(0.76 0.03 320); line-height: 1.4;"><span style="color: oklch(0.72 0.18 300 / 0.85);">✧</span><span>Networking entre estudantes</span></li>
+          </ul>
+          <span style="text-align: center; padding: 12px; border-radius: 999px; font-family: 'Chakra Petch', monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 600; border: 1px solid oklch(0.68 0.18 300 / 0.5); color: oklch(0.8 0.18 300); cursor: pointer;">Entrar no círculo</span>
+        </article>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <footer style="position: relative; z-index: 2; border-top: 1px solid oklch(0.72 0.24 350 / 0.18); padding: 40px 28px; text-align: center;">
+      <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 15px; color: oklch(0.72 0.04 320); margin: 0;">Material simbólico e espiritual para autoconhecimento. Mapa ≠ destino.</p>
+      <p style="font-family: 'Chakra Petch', monospace; font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; color: oklch(0.82 0.16 345 / 0.7); margin: 16px 0 0;">✦ Tecnomancia Contemplativa ✦</p>
+    </footer>
+  </div>
+</section>
+
+<section id="1b" style="position: relative; margin: 48px auto 60px; width: 1180px;">
+  <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+    <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; color: oklch(0.95 0.02 90); background: oklch(0.28 0.04 275); padding: 4px 12px; border-radius: 999px;">1b</span>
+    <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: oklch(0.72 0.03 90);">Landing · original (como está no ar hoje)</span>
+  </div>
+
+  <div style="position: relative; overflow: hidden; border: 1px solid oklch(0.78 0.13 82 / 0.22); border-radius: 8px; background: radial-gradient(ellipse at 20% 10%, oklch(0.78 0.11 210 / 0.12) 0%, transparent 55%), radial-gradient(ellipse at 80% 90%, oklch(0.78 0.13 82 / 0.1) 0%, transparent 55%), linear-gradient(180deg, oklch(0.11 0.05 275) 0%, oklch(0.14 0.04 275) 100%);">
+    <div style="position: absolute; inset: 0; z-index: 0; pointer-events: none;">{{ starsB }}</div>
+
+    <header style="position: relative; z-index: 2; border-bottom: 1px solid oklch(0.78 0.13 82 / 0.16);">
+      <div style="max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 20px 28px;">
+        <div style="display: flex; align-items: center; gap: 12px;">{{ logoB }}<span style="font-family: 'Cormorant Garamond', serif; font-size: 20px; letter-spacing: 0.4em; color: oklch(0.82 0.13 82); text-shadow: 0 0 18px oklch(0.78 0.13 82 / 0.5);">STELLIUM</span></div>
+        <nav style="display: flex; align-items: center; gap: 30px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: oklch(0.72 0.03 90);"><span>Experimente</span><span>Planos</span><span style="border: 1px solid oklch(0.78 0.13 82 / 0.6); border-radius: 4px; padding: 8px 16px; color: oklch(0.82 0.13 82);">Entrar</span></nav>
+      </div>
+    </header>
+
+    <div style="position: relative; z-index: 2; max-width: 1100px; margin: 0 auto; padding: 64px 28px 0;">
+      <div style="position: relative; border: 1px solid oklch(0.78 0.13 82 / 0.25); border-radius: 4px; padding: 64px 40px; text-align: center;">
+        <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase; color: oklch(0.82 0.13 82 / 0.8); margin: 0;">✦ Stellium · Observatorium · v.1.0 ✦</p>
+        <h1 style="font-family: 'Cormorant Garamond', serif; font-size: 68px; font-weight: 400; letter-spacing: 0.35em; margin: 30px 0 0; padding-left: 0.35em; color: oklch(0.82 0.13 82); text-shadow: 0 0 18px oklch(0.78 0.13 82 / 0.5);">STELLIUM</h1>
+        <p style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.35em; text-transform: uppercase; color: oklch(0.72 0.03 90); margin: 24px 0 0;">entre o silêncio &amp; o símbolo eu caminho.</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 44px;">
+          <span style="border: 1px solid oklch(0.78 0.13 82); background: oklch(0.78 0.13 82 / 0.1); padding: 13px 24px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: oklch(0.82 0.13 82);">✦ Experimente Grátis</span>
+          <span style="border: 1px solid oklch(0.78 0.13 82 / 0.4); padding: 13px 24px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: oklch(0.9 0.02 90);">Entrar</span>
+          <span style="border: 1px solid oklch(0.78 0.13 82 / 0.4); padding: 13px 24px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: oklch(0.9 0.02 90);">Ver planos</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="position: relative; z-index: 2; max-width: 1100px; margin: 0 auto; padding: 90px 28px 0;">
+      <p style="text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; color: oklch(0.82 0.13 82 / 0.7); margin: 0;">✦ Três entradas no mesmo céu ✦</p>
+      <h2 style="text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 38px; font-weight: 400; color: oklch(0.95 0.02 90); margin: 16px 0 0;">Escolha por onde começar</h2>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 52px;">
+        <sc-for list="{{ plansB }}" as="p" hint-placeholder-count="3">
+          <div style="position: relative; display: flex; flex-direction: column; padding: 32px 28px; border-radius: 4px; border: 1px solid {{ p.border }}; background: oklch(0.17 0.045 272 / 0.6);">
+            <sc-if value="{{ p.featured }}" hint-placeholder-val="{{ false }}">
+              <span style="position: absolute; top: -12px; left: 50%; translate: -50% 0; border: 1px solid oklch(0.78 0.13 82 / 0.6); background: oklch(0.14 0.04 275); padding: 4px 14px; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: oklch(0.82 0.13 82);">✦ mais escolhido</span>
+            </sc-if>
+            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 400; color: oklch(0.82 0.13 82); margin: 0;">{{ p.name }}</h3>
+            <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; color: oklch(0.72 0.03 90); margin: 4px 0 0;">{{ p.subtitle }}</p>
+            <div style="display: flex; align-items: baseline; gap: 8px; margin-top: 24px;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 28px; color: oklch(0.95 0.02 90);">{{ p.price }}</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: oklch(0.72 0.03 90);">{{ p.suffix }}</span>
+            </div>
+            <ul style="list-style: none; padding: 0; margin: 30px 0 0; display: flex; flex-direction: column; gap: 12px; flex: 1;">
+              <sc-for list="{{ p.features }}" as="f" hint-placeholder-count="4">
+                <li style="display: flex; align-items: flex-start; gap: 8px; font-size: 14px; color: oklch(0.88 0.02 90);"><span style="flex-shrink: 0; color: oklch(0.82 0.13 82); margin-top: 1px;">✓</span><span>{{ f }}</span></li>
+              </sc-for>
+            </ul>
+            <span style="margin-top: 30px; text-align: center; padding: 13px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; border: 1px solid {{ p.ctaBorder }}; background: {{ p.ctaBg }}; color: {{ p.ctaColor }};">{{ p.cta }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="position: relative; z-index: 2; max-width: 780px; margin: 0 auto; padding: 90px 28px; text-align: center;">
+      <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 22px; line-height: 1.5; color: oklch(0.72 0.03 90); margin: 0;">"O céu não decide por você. Ele apenas oferece uma linguagem para que você escute o que já sabe."</p>
+    </div>
+
+    <footer style="position: relative; z-index: 2; border-top: 1px solid oklch(0.78 0.13 82 / 0.16); padding: 40px 28px; text-align: center;">
+      <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; color: oklch(0.72 0.03 90); margin: 0;">Material simbólico e espiritual para autoconhecimento. Mapa ≠ destino.</p>
+      <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; color: oklch(0.82 0.13 82 / 0.7); margin: 16px 0 0;">✦ Tecnomancia Contemplativa ✦</p>
+    </footer>
+  </div>
+</section>
+<div style="position: absolute; z-index: 9; height: 56px; display: flex; align-items: center; gap: 14px; padding: 0 26px; background: oklch(0.1 0.03 305 / 0.9); border-bottom: 1px solid oklch(0.72 0.24 350 / 0.28); left: -5px; top: 53px">
+      <div style="display: flex; align-items: center; gap: 11px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" style="filter: drop-shadow(0 0 7px oklch(0.62 0.26 300 / 0.75));"><g fill="oklch(0.6 0.26 300 / 0.35)" stroke="oklch(0.78 0.2 300)" stroke-width="1.1" stroke-linejoin="round"><path d="M 12,2 L 20.66,17 L 3.34,17 Z"></path><path d="M 12,22 L 3.34,7 L 20.66,7 Z"></path></g></svg>
+        <span style="font-family: 'Orbitron', sans-serif; font-size: 15px; letter-spacing: 0.32em; font-weight: 500; color: oklch(0.9 0.08 340);">STELLIUM</span>
+      </div>
+      <span style="font-family: 'Chakra Petch', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.8 0.19 162); text-shadow: 0 0 8px oklch(0.72 0.18 162 / 0.85); border: 1px solid oklch(0.72 0.24 350 / 0.5); border-radius: 999px; padding: 3px 12px;">✧ A SACERDOTISA</span>
+      <nav style="margin-left: auto; display: flex; gap: 22px; font-family: 'Chakra Petch', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.74 0.03 320);">
+        <span style="color: oklch(0.82 0.18 345); border: 1px solid oklch(0.72 0.24 350 / 0.5); border-radius: 999px; padding: 5px 13px; box-shadow: 0 0 14px -4px oklch(0.72 0.24 350);">Portal</span>
+      </nav>
+    </div><div style="position: absolute; inset: 0; pointer-events: none; z-index: 8; background: repeating-linear-gradient(0deg, oklch(0.72 0.24 350 / 0.03) 0px, oklch(0.72 0.24 350 / 0.03) 1px, transparent 1px, transparent 3px); mix-blend-mode: screen; left: -4px; top: 75px"></div></x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { cap: "", dailyFlipped: false, dailyRevealed: false, di: 0 };
+  _ci = 0;
+  CAPS = ["entre o silêncio & o símbolo eu caminho.", "mapa ≠ destino — o céu é só linguagem.", "três entradas no mesmo céu."];
+  ARC = [
+    { sym: "✶", nome: "A Estrela", palavra: "Esperança & fé" },
+    { sym: "☾", nome: "A Lua", palavra: "Intuição & mistério" },
+    { sym: "☉", nome: "O Sol", palavra: "Clareza & alegria" },
+    { sym: "☽", nome: "A Sacerdotisa", palavra: "Sabedoria oculta" },
+    { sym: "∾", nome: "A Força", palavra: "Coragem serena" },
+    { sym: "✺", nome: "O Mundo", palavra: "Realização" },
+  ];
+
+  componentDidMount() { this.typeLoop(); }
+  componentWillUnmount() { clearTimeout(this._t); }
+
+  typeLoop() {
+    const full = this.CAPS[this._ci % this.CAPS.length];
+    const cur = this.state.cap;
+    if (cur.length < full.length) {
+      this.setState({ cap: full.slice(0, cur.length + 1) });
+      this._t = setTimeout(() => this.typeLoop(), 55);
+    } else {
+      this._t = setTimeout(() => { this._ci++; this.setState({ cap: "" }); this.typeLoop(); }, 2600);
+    }
+  }
+
+  flipDaily = () => {
+    if (!this.state.dailyFlipped) {
+      const di = Math.floor(Math.random() * this.ARC.length);
+      this.setState({ dailyFlipped: true, di });
+      clearTimeout(this._df);
+      this._df = setTimeout(() => this.setState({ dailyRevealed: true }), 440);
+    } else {
+      this.setState({ dailyFlipped: false, dailyRevealed: false });
+    }
+  };
+
+  logoSVG(size) {
+    const e = React.createElement;
+    const lines = [];
+    for (let i = 0; i < 8; i++) { const a = i * Math.PI / 4; lines.push(e("line", { key: i, x1: 20 + Math.cos(a) * 8, y1: 20 + Math.sin(a) * 8, x2: 20 + Math.cos(a) * 18, y2: 20 + Math.sin(a) * 18 })); }
+    return e("svg", { viewBox: "0 0 40 40", width: size, height: size, fill: "none", stroke: "oklch(0.82 0.13 82)", strokeWidth: 0.9, style: { filter: "drop-shadow(0 0 6px oklch(0.78 0.13 82 / 0.6))" } },
+      e("circle", { cx: 20, cy: 20, r: 18 }), e("circle", { cx: 20, cy: 20, r: 13 }), e("circle", { cx: 20, cy: 20, r: 8 }), ...lines, e("circle", { cx: 20, cy: 20, r: 1.5, fill: "oklch(0.82 0.13 82)" }));
+  }
+
+  sacredGeo() {
+    const e = React.createElement;
+    // Cubo de Metatron — derivado da Fruta da Vida (13 círculos) com todos os centros ligados.
+    const cx = 100, cy = 100, r = 15;
+    const C = [[cx, cy]];
+    const ring = (d, off) => { for (let k = 0; k < 6; k++) { const a = (off + k * 60) * Math.PI / 180; C.push([cx + d * Math.cos(a), cy + d * Math.sin(a)]); } };
+    ring(2 * r, 0);                 // 6 círculos internos (tocam o centro)
+    ring(2 * r * Math.sqrt(3), 30); // 6 círculos externos (Fruta da Vida = 13)
+    const circ = C.map((p, i) => e("circle", { key: "c" + i, cx: p[0].toFixed(2), cy: p[1].toFixed(2), r: r }));
+    const lines = [];
+    for (let i = 0; i < C.length; i++) for (let j = i + 1; j < C.length; j++) lines.push(e("line", { key: i + "-" + j, x1: C[i][0].toFixed(2), y1: C[i][1].toFixed(2), x2: C[j][0].toFixed(2), y2: C[j][1].toFixed(2) }));
+    const poly = (R, angs) => angs.map((a) => { const t = a * Math.PI / 180; return (cx + R * Math.cos(t)).toFixed(1) + "," + (cy + R * Math.sin(t)).toFixed(1); }).join(" ");
+    const flower = e("svg", { viewBox: "0 0 200 200", width: 580, height: 580, style: { position: "absolute", inset: 0, filter: "drop-shadow(0 0 8px oklch(0.72 0.24 350 / 0.4))" } },
+      e("g", { fill: "none", stroke: "oklch(0.82 0.16 300)", strokeOpacity: 0.16, strokeWidth: 0.35 }, ...lines),
+      e("g", { fill: "none", stroke: "oklch(0.8 0.2 345)", strokeOpacity: 0.32, strokeWidth: 0.4 }, ...circ)
+    );
+    const star = e("svg", { viewBox: "0 0 200 200", width: 580, height: 580, style: { position: "absolute", inset: 0 } },
+      e("g", { fill: "none", stroke: "oklch(0.86 0.14 88)", strokeOpacity: 0.28, strokeWidth: 0.5 },
+        e("polygon", { points: poly(70, [0, 60, 120, 180, 240, 300]) }),
+        e("circle", { cx: 100, cy: 100, r: 76 })
+      )
+    );
+    return { flower, star };
+  }
+
+  starfield(seed, gold) {
+    const e = React.createElement;
+    let s = seed;
+    const rnd = () => { s = (s * 9301 + 49297) % 233280; return s / 233280; };
+    const stars = [];
+    for (let i = 0; i < 74; i++) {
+      const g = rnd() > 0.8;
+      stars.push(e("circle", { key: i, cx: (rnd() * 100).toFixed(2) + "%", cy: (rnd() * 100).toFixed(2) + "%", r: (0.4 + rnd() * 0.9).toFixed(2), fill: g ? gold : "oklch(0.95 0.02 90)", style: { animation: "st-twinkle " + (3 + rnd() * 4).toFixed(2) + "s ease-in-out infinite", animationDelay: (rnd() * 4).toFixed(2) + "s" } }));
+    }
+    return e("svg", { width: "100%", height: "100%", preserveAspectRatio: "none", style: { position: "absolute", inset: 0 } }, ...stars);
+  }
+
+  renderVals() {
+    const gold = "oklch(0.78 0.13 82)";
+    const arc = this.ARC[this.state.di];
+    const plansB = [
+      { name: "Consulente", subtitle: "Para quem quer consultar, não estudar.", price: "Gratuito", suffix: "", features: ["Leituras avulsas pagas (R$ 17 a R$ 167)", "Agendar videochamada com A Sacerdotisa", "Histórico só dos seus pedidos", "Sem acesso aos módulos completos"], cta: "Criar conta grátis", featured: false, border: "oklch(0.7 0.03 90 / 0.3)", ctaBorder: "oklch(0.78 0.13 82 / 0.6)", ctaBg: "transparent", ctaColor: gold },
+      { name: "Observatório", subtitle: "Para quem decide aprender o céu.", price: "R$ 33,30", suffix: "/mês", features: ["Acesso completo a todos os oráculos", "Histórico cruzado entre cartas e mapas", "Biblioteca + horóscopo do dia", "Navegação fluida, sem travas"], cta: "Assinar", featured: true, border: "oklch(0.78 0.13 82 / 0.6)", ctaBorder: gold, ctaBg: gold, ctaColor: "oklch(0.14 0.04 275)" },
+      { name: "Labor Premium", subtitle: "Para quem caminha em círculo, não sozinho.", price: "R$ 77,70", suffix: "/mês", features: ["Tudo do Observatório", "Círculo Filosófico (fórum + blog)", "Comentários e perguntas à comunidade", "Networking entre estudantes"], cta: "Assinar", featured: false, border: "oklch(0.7 0.03 90 / 0.3)", ctaBorder: "oklch(0.78 0.13 82 / 0.6)", ctaBg: "transparent", ctaColor: gold },
+    ];
+    return {
+      stars: this.starfield(7919, "oklch(0.86 0.14 350)"),
+      starsB: this.starfield(4241, "oklch(0.86 0.08 85)"),
+      logoB: this.logoSVG(32),
+      geoFlower: this.sacredGeo().flower, geoStar: this.sacredGeo().star,
+      typedCaption: this.state.cap,
+      flipDaily: this.flipDaily,
+      dailyTransform: this.state.dailyFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+      dailyRevealed: this.state.dailyRevealed,
+      dailyNome: arc.nome, dailyPalavra: arc.palavra, dailySym: arc.sym,
+      dailyBg: "radial-gradient(circle at 50% 38%, oklch(0.28 0.12 330), oklch(0.13 0.05 305))",
+      plansB,
+    };
+  }
+}
+</script>
+</body>
+</html>

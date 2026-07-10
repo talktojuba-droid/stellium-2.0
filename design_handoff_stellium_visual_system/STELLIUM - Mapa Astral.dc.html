@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="design_doc_mode" content="canvas" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Space+Mono:wght@400;700&family=Orbitron:wght@400;500;700;900&family=Chakra+Petch:wght@300;400;500;600;700&display=swap" />
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at 24% 4%, oklch(0.21 0.075 288), oklch(0.075 0.03 278) 62%);
+      font-family: "Cormorant Garamond", ui-serif, Georgia, serif;
+      color: oklch(0.94 0.015 240);
+    }
+    a { color: oklch(0.82 0.14 300); text-decoration: none; }
+    a:hover { color: oklch(0.9 0.14 300); }
+    @keyframes st-twinkle { 0%,100% { opacity: 0.18; transform: scale(0.8); } 50% { opacity: 0.95; transform: scale(1.2); } }
+    @keyframes st-pulse { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
+    @keyframes st-spin { to { transform: rotate(360deg); } }
+    @keyframes st-spin-rev { to { transform: rotate(-360deg); } }
+    @keyframes st-breathe { 0%,100% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.05); opacity: 1; } }
+    @keyframes st-bordershine { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+    @media (prefers-reduced-motion: reduce) { *{ animation: none !important; } }
+  </style>
+</helmet>
+
+<div style="position: relative; width: 1180px; margin: 44px auto; border: 1px solid oklch(0.7 0.13 300 / 0.3); border-radius: 26px; background: oklch(0.08 0.025 280); overflow: hidden; box-shadow: 0 44px 110px -34px oklch(0 0 0 / 0.9), 0 0 80px -40px oklch(0.7 0.14 300 / 0.5);">
+
+  <!-- starfield -->
+  <div style="position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0.8;">{{ stars }}</div>
+  <!-- nebula blooms -->
+  <div style="position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;">
+    <div style="position: absolute; left: -6%; top: -8%; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, oklch(0.55 0.2 300 / 0.22), transparent 72%);"></div>
+    <div style="position: absolute; right: -8%; bottom: -10%; width: 560px; height: 460px; border-radius: 50%; background: radial-gradient(circle, oklch(0.6 0.16 350 / 0.16), transparent 70%);"></div>
+  </div>
+
+  <!-- TOP BAR -->
+  <div style="position: relative; z-index: 2; height: 62px; display: flex; align-items: center; gap: 16px; padding: 0 24px; background: oklch(0.08 0.02 260 / 0.92); border-bottom: 1px solid oklch(0.7 0.13 300 / 0.2);">
+    <a href="STELLIUM - Observatorio.dc.html" style="display: inline-flex; align-items: center; gap: 8px; padding: 0 14px 0 11px; height: 36px; border-radius: 999px; border: 1px solid oklch(0.7 0.12 300 / 0.4); background: oklch(0.14 0.04 285 / 0.5); font-family: 'Chakra Petch', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.86 0.1 300);">‹ Painel</a>
+    <div style="display: flex; align-items: center; gap: 11px;">
+      <svg width="22" height="22" viewBox="0 0 24 24" style="filter: drop-shadow(0 0 7px oklch(0.62 0.26 300 / 0.7));"><g fill="oklch(0.6 0.26 300 / 0.35)" stroke="oklch(0.78 0.2 300)" stroke-width="1"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/></g></svg>
+      <span style="font-family: 'Orbitron', sans-serif; font-size: 15px; letter-spacing: 0.32em; font-weight: 500; color: oklch(0.93 0.03 240);">STELLIUM</span>
+    </div>
+    <span style="margin-left: auto; font-family: 'Chakra Petch', monospace; font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase; color: oklch(0.85 0.16 350); border: 1px solid oklch(0.74 0.16 350 / 0.45); border-radius: 999px; padding: 4px 12px;">✦ Módulo · Observatório+</span>
+  </div>
+
+  <!-- MAIN -->
+  <div style="position: relative; z-index: 2; padding: 34px 40px 44px;">
+
+    <!-- header -->
+    <div style="margin-bottom: 26px;">
+      <span style="font-family: 'Chakra Petch', monospace; font-size: 9.5px; letter-spacing: 0.34em; text-transform: uppercase; color: oklch(0.82 0.14 300);">✦ Mapa natal</span>
+      <h1 style="font-family: 'Cormorant Garamond', serif; font-size: 46px; font-weight: 500; line-height: 1; margin: 6px 0 0; color: oklch(0.96 0.02 280);">Mapa Astral</h1>
+      <p style="font-family: 'Chakra Petch', monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.72 0.06 280 / 0.9); margin: 10px 0 0;">Ana Lúcia "Lua" Moreira · 05 nov 1993 · 14h20 · São Paulo, BR</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 380px; gap: 28px; align-items: start;">
+
+      <!-- WHEEL card -->
+      <div style="position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; padding: 30px; border: 1px solid oklch(0.7 0.12 300 / 0.28); border-radius: 22px; background: linear-gradient(140deg, oklch(0.18 0.09 288 / 0.4), oklch(0.12 0.05 280 / 0.2) 55%, oklch(0.1 0.04 258 / 0.08)); box-shadow: inset 0 0 90px -34px oklch(0.6 0.22 300 / 0.5);">
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, oklch(0.82 0.14 300), transparent) 0 0 / 200% 100%; animation: st-bordershine 5s linear infinite;"></div>
+        <div style="position: absolute; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle, oklch(0.6 0.16 300 / 0.18), transparent 66%); animation: st-breathe 8s ease-in-out infinite;"></div>
+        <div style="position: relative;">{{ wheel }}</div>
+      </div>
+
+      <!-- SIDE panel -->
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+
+        <!-- big three -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+          <sc-for list="{{ big3 }}" as="b" hint-placeholder-count="3">
+            <div style="padding: 14px 12px; border-radius: 14px; border: 1px solid {{ b.color }}; background: oklch(0.11 0.03 280 / 0.4);">
+              <div style="display: flex; align-items: center; gap: 7px;"><span style="font-size: 18px; color: {{ b.color }}; filter: drop-shadow(0 0 7px {{ b.color }});">{{ b.glyph }}</span><span style="font-family: 'Chakra Petch', monospace; font-size: 7.5px; letter-spacing: 0.16em; text-transform: uppercase; color: oklch(0.66 0.04 280);">{{ b.rot }}</span></div>
+              <div style="font-family: 'Cormorant Garamond', serif; font-size: 19px; color: oklch(0.95 0.03 280); margin-top: 5px; line-height: 1;">{{ b.signo }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <!-- planet positions -->
+        <div style="border: 1px solid oklch(0.7 0.05 285 / 0.24); border-radius: 18px; background: oklch(0.1 0.03 262 / 0.4); overflow: hidden;">
+          <div style="padding: 13px 16px; border-bottom: 1px solid oklch(0.6 0.05 280 / 0.2);"><span style="font-family: 'Chakra Petch', monospace; font-size: 8.5px; letter-spacing: 0.24em; text-transform: uppercase; color: oklch(0.78 0.1 300);">Posições planetárias</span></div>
+          <sc-for list="{{ planets }}" as="p" hint-placeholder-count="8">
+            <div style="display: flex; align-items: center; gap: 12px; padding: 9px 16px; border-bottom: 1px solid oklch(0.5 0.03 280 / 0.12);">
+              <span style="width: 26px; text-align: center; font-size: 16px; color: {{ p.color }}; filter: drop-shadow(0 0 6px {{ p.color }});">{{ p.glyph }}</span>
+              <span style="flex: 1; font-family: 'Cormorant Garamond', serif; font-size: 16px; color: oklch(0.92 0.02 270);">{{ p.nome }}</span>
+              <span style="font-family: 'Chakra Petch', monospace; font-size: 11px; color: {{ p.color }};">{{ p.grau }} {{ p.signo }}</span>
+              <span style="font-family: 'Chakra Petch', monospace; font-size: 9px; letter-spacing: 0.1em; color: oklch(0.6 0.03 275); width: 44px; text-align: right;">Casa {{ p.casa }}</span>
+            </div>
+          </sc-for>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- lower: houses + aspects + interpretation -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 28px;">
+
+      <!-- aspects -->
+      <div style="border: 1px solid oklch(0.7 0.05 285 / 0.24); border-radius: 18px; background: oklch(0.1 0.03 262 / 0.4); padding: 20px 22px;">
+        <span style="font-family: 'Chakra Petch', monospace; font-size: 8.5px; letter-spacing: 0.24em; text-transform: uppercase; color: oklch(0.78 0.1 300);">Aspectos principais</span>
+        <div style="display: flex; flex-direction: column; gap: 11px; margin-top: 14px;">
+          <sc-for list="{{ aspects }}" as="a" hint-placeholder-count="4">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="width: 10px; height: 10px; border-radius: 50%; background: {{ a.color }}; box-shadow: 0 0 8px {{ a.color }}; flex-shrink: 0;"></span>
+              <span style="font-family: 'Cormorant Garamond', serif; font-size: 16.5px; color: oklch(0.92 0.02 270);">{{ a.par }}</span>
+              <span style="margin-left: auto; font-family: 'Chakra Petch', monospace; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: {{ a.color }};">{{ a.tipo }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- AI interpretation -->
+      <div style="border: 1px solid oklch(0.72 0.12 300 / 0.3); border-radius: 18px; background: linear-gradient(150deg, oklch(0.16 0.07 300 / 0.4), oklch(0.1 0.03 262 / 0.3)); padding: 20px 22px; display: flex; flex-direction: column;">
+        <span style="font-family: 'Chakra Petch', monospace; font-size: 8.5px; letter-spacing: 0.24em; text-transform: uppercase; color: oklch(0.8 0.12 300);">✧ Leitura de A Sacerdotisa</span>
+        <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 17px; line-height: 1.6; color: oklch(0.9 0.03 280); margin: 12px 0 0; flex: 1; text-wrap: pretty;">{{ leitura }}</p>
+        <sc-if value="{{ loading }}" hint-placeholder-val="{{ false }}">
+          <span style="display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; font-family: 'Chakra Petch', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.8 0.1 300);"><span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.8 0.12 300); animation: st-pulse 1s ease-in-out infinite;"></span>lendo os astros…</span>
+        </sc-if>
+        <span onClick="{{ interpretar }}" style="align-self: flex-start; margin-top: 16px; padding: 11px 24px; border-radius: 999px; font-family: 'Chakra Petch', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; background: linear-gradient(135deg, oklch(0.72 0.18 300), oklch(0.7 0.16 340)); color: oklch(0.14 0.04 300); cursor: pointer;">{{ botao }}</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { leitura: "", loading: false, asked: false };
+
+  ZG = ["\u2648","\u2649","\u264a","\u264b","\u264c","\u264d","\u264e","\u264f","\u2650","\u2651","\u2652","\u2653"];
+  ZN = ["Áries","Touro","Gêmeos","Câncer","Leão","Virgem","Libra","Escorpião","Sagitário","Capricórnio","Aquário","Peixes"];
+
+  // planetas: lon (0=Áries 0°), casa, signo idx
+  PLAN = [
+    { glyph: "\u2609", nome: "Sol", si: 7, grau: "13°", casa: 4, hue: 85 },
+    { glyph: "\u263e", nome: "Lua", si: 11, grau: "5°", casa: 8, hue: 275 },
+    { glyph: "\u263f", nome: "Mercúrio", si: 8, grau: "2°", casa: 5, hue: 200 },
+    { glyph: "\u2640", nome: "Vênus", si: 6, grau: "20°", casa: 3, hue: 350 },
+    { glyph: "\u2642", nome: "Marte", si: 5, grau: "28°", casa: 2, hue: 30 },
+    { glyph: "\u2643", nome: "Júpiter", si: 6, grau: "10°", casa: 3, hue: 300 },
+    { glyph: "\u2644", nome: "Saturno", si: 10, grau: "18°", casa: 7, hue: 250 },
+    { glyph: "\u2191", nome: "Ascendente", si: 4, grau: "15°", casa: 1, hue: 88 },
+  ];
+
+  col(hue, l, c) { return "oklch(" + (l || 0.82) + " " + (c || 0.15) + " " + hue + ")"; }
+
+  lonOf(p) { return p.si * 30 + parseFloat(p.grau); }
+
+  chartWheel(size) {
+    const e = React.createElement;
+    const cx = size / 2, cy = size / 2;
+    const rOut = size * 0.48, rZod = size * 0.4, rHouse = size * 0.3, rPl = size * 0.235, rIn = size * 0.11;
+    const ang = (lon) => (lon - 90) * Math.PI / 180; // Áries 0° no topo, horário
+    const pt = (lon, r) => [cx + r * Math.cos(ang(lon)), cy + r * Math.sin(ang(lon))];
+    const kids = [];
+    [rOut, rZod, rHouse, rIn].forEach((r, i) => kids.push(e("circle", { key: "r" + i, cx, cy, r, fill: "none", stroke: "oklch(0.7 0.07 285 / " + (i === 0 ? 0.55 : 0.28) + ")", strokeWidth: i === 0 ? 1.1 : 0.7 })));
+    // setores + glifos do zodíaco
+    for (let i = 0; i < 12; i++) {
+      const a0 = ang(i * 30);
+      kids.push(e("line", { key: "s" + i, x1: cx + rIn * Math.cos(a0), y1: cy + rIn * Math.sin(a0), x2: cx + rOut * Math.cos(a0), y2: cy + rOut * Math.sin(a0), stroke: "oklch(0.6 0.05 285 / 0.22)", strokeWidth: 0.7 }));
+      const gp = pt(i * 30 + 15, (rZod + rOut) / 2);
+      const gold = i % 3 === 0;
+      kids.push(e("text", { key: "g" + i, x: gp[0], y: gp[1], fill: gold ? "oklch(0.86 0.13 85)" : "oklch(0.8 0.1 300)", fontSize: size * 0.042, textAnchor: "middle", dominantBaseline: "central", style: { fontFamily: "serif" } }, this.ZG[i]));
+    }
+    // números das casas (equal houses a partir do Asc)
+    const ascLon = this.lonOf(this.PLAN[7]);
+    for (let h = 0; h < 12; h++) {
+      const hp = pt(ascLon + h * 30 + 15, (rHouse + rIn) / 2);
+      kids.push(e("text", { key: "h" + h, x: hp[0], y: hp[1], fill: "oklch(0.6 0.04 280)", fontSize: size * 0.028, textAnchor: "middle", dominantBaseline: "central", style: { fontFamily: "'Chakra Petch', monospace" } }, String(h + 1)));
+      const ca = ang(ascLon + h * 30);
+      kids.push(e("line", { key: "hc" + h, x1: cx + rIn * Math.cos(ca), y1: cy + rIn * Math.sin(ca), x2: cx + rHouse * Math.cos(ca), y2: cy + rHouse * Math.sin(ca), stroke: "oklch(0.65 0.06 300 / 0.18)", strokeWidth: 0.6 }));
+    }
+    // aspectos (linhas centrais)
+    this.ASP.forEach((a, i) => {
+      const p1 = pt(this.lonOf(this.PLAN[a.a]), rPl), p2 = pt(this.lonOf(this.PLAN[a.b]), rPl);
+      kids.push(e("line", { key: "as" + i, x1: p1[0], y1: p1[1], x2: p2[0], y2: p2[1], stroke: a.color, strokeOpacity: 0.5, strokeWidth: 0.9, strokeDasharray: a.dash || "0" }));
+    });
+    // planetas
+    this.PLAN.forEach((p, i) => {
+      const lp = pt(this.lonOf(p), rPl), c = this.col(p.hue);
+      kids.push(e("line", { key: "pr" + i, x1: cx, y1: cy, x2: lp[0], y2: lp[1], stroke: c, strokeOpacity: 0.25, strokeWidth: 0.6 }));
+      kids.push(e("circle", { key: "pd" + i, cx: lp[0], cy: lp[1], r: size * 0.03, fill: "oklch(0.11 0.03 280 / 0.92)", stroke: c, strokeWidth: 1.1, style: { filter: "drop-shadow(0 0 4px " + c + ")" } }));
+      kids.push(e("text", { key: "pg" + i, x: lp[0], y: lp[1], fill: c, fontSize: size * 0.036, textAnchor: "middle", dominantBaseline: "central", style: { fontFamily: "serif" } }, p.glyph));
+    });
+    kids.push(e("circle", { key: "core", cx, cy, r: rIn * 0.55, fill: "none", stroke: "oklch(0.82 0.12 300 / 0.4)", strokeWidth: 0.7, strokeDasharray: "2 4", style: { transformOrigin: cx + "px " + cy + "px", animation: "st-spin 120s linear infinite" } }));
+    return e("svg", { viewBox: "0 0 " + size + " " + size, width: size, height: size, style: { overflow: "visible" } }, ...kids);
+  }
+
+  ASP = [
+    { a: 0, b: 1, tipo: "Trígono", color: "oklch(0.8 0.13 155)", dash: "0" },    // Sol-Lua (água)
+    { a: 3, b: 5, tipo: "Sextil", color: "oklch(0.82 0.12 235)", dash: "0" },    // Vênus-Júpiter
+    { a: 1, b: 4, tipo: "Quadratura", color: "oklch(0.75 0.18 30)", dash: "4 3" },// Lua-Marte
+    { a: 0, b: 2, tipo: "Sextil", color: "oklch(0.82 0.12 235)", dash: "0" },    // Sol-Mercúrio
+  ];
+
+  starfield() {
+    const e = React.createElement;
+    let s = 7919;
+    const rnd = () => { s = (s * 9301 + 49297) % 233280; return s / 233280; };
+    const stars = [];
+    for (let i = 0; i < 42; i++) {
+      const gold = rnd() > 0.72;
+      stars.push(e("circle", { key: i, cx: (rnd() * 100).toFixed(2) + "%", cy: (rnd() * 100).toFixed(2) + "%", r: (0.15 + rnd() * 0.5).toFixed(2), fill: gold ? "#efd9a0" : "#dfe8fb", style: { animation: "st-twinkle " + (2.2 + rnd() * 3.5).toFixed(2) + "s ease-in-out infinite", animationDelay: (rnd() * 4).toFixed(2) + "s", transformOrigin: "center" } }));
+    }
+    return e("svg", { width: "100%", height: "100%", preserveAspectRatio: "none", style: { position: "absolute", inset: 0 } }, ...stars);
+  }
+
+  interpretar = async () => {
+    if (this.state.loading) return;
+    if (!(window.claude && window.claude.complete)) {
+      this.setState({ leitura: "Com Sol em Escorpião, Lua em Peixes e Ascendente em Leão, seu mapa tece intensidade, sensibilidade e brilho. O trígono de água entre Sol e Lua dá profundidade emocional; o Ascendente em Leão pede que você seja vista.", asked: true });
+      return;
+    }
+    const token = Symbol();
+    this._t = token;
+    this.setState({ loading: true, asked: true });
+    try {
+      const txt = await window.claude.complete({
+        system: "Você é A Sacerdotisa, astróloga. Escreve em português do Brasil, tom poético e acolhedor. Nunca usa listas nem títulos.",
+        messages: [{ role: "user", content: "Interprete em 3 a 4 frases um mapa natal com Sol em Escorpião (casa 4), Lua em Peixes (casa 8), Ascendente em Leão, Vênus em Libra e Marte em Virgem. Destaque o trígono de água entre Sol e Lua. Fale diretamente com a pessoa." }],
+        max_tokens: 260,
+      });
+      if (this._t !== token) return;
+      this.setState({ leitura: (txt || "").trim(), loading: false });
+    } catch (e) {
+      if (this._t === token) this.setState({ loading: false });
+    }
+  };
+
+  renderVals() {
+    const big3 = [
+      { rot: "Sol", glyph: "\u2609", signo: "Escorpião", color: this.col(85) },
+      { rot: "Lua", glyph: "\u263e", signo: "Peixes", color: this.col(275) },
+      { rot: "Asc", glyph: "\u2191", signo: "Leão", color: this.col(88) },
+    ];
+    const planets = this.PLAN.map((p) => ({ glyph: p.glyph, nome: p.nome, signo: this.ZN[p.si], grau: p.grau, casa: p.casa, color: this.col(p.hue) }));
+    const aspects = this.ASP.map((a) => ({ par: this.PLAN[a.a].nome + " · " + this.PLAN[a.b].nome, tipo: a.tipo, color: a.color }));
+    return {
+      stars: this.starfield(),
+      wheel: this.chartWheel(420),
+      big3, planets, aspects,
+      leitura: this.state.leitura || "Toque abaixo para A Sacerdotisa interpretar seu mapa natal — a conversa entre os seus astros.",
+      loading: this.state.loading,
+      botao: this.state.asked ? "Interpretar de novo ✦" : "Interpretar meu mapa ✦",
+      interpretar: this.interpretar,
+    };
+  }
+}
+</script>
+</body>
+</html>
